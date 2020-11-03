@@ -1,8 +1,3 @@
-# Spring Boot Tutorial
-
-Tutorial Video: https://www.bilibili.com/video/BV1Et411Y7tQ?p=4
-
-
 ### 04 - springboot-helloworld
  - start project (maven)
  - import spring boot start-web project

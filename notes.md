@@ -106,9 +106,12 @@ java -jar spring-boot-01-helloworld-1.0-SNAPSHOT.jar
 ```
 # 05-springboot-场景启动器
 
-## POM 文件
-### 1. 父项目
+## 1. POM 文件
+
+### 1.1. 父项目
+
 他(org.springframework.boot) 的父项目是spring-boot-starter-parent
+
 ```
 <parent>
     <groupId>org.springframework.boot</groupId>
@@ -132,7 +135,7 @@ spring-boot-starter-parent 的父项目是 spring-boot-dependencies
 
 他来真正管理Spring Boot 应用里面的所有依赖版本。
 
-## 倒入的依赖
+### 1.2. 倒入的依赖
 
 ```
 <dependencies>
@@ -142,4 +145,88 @@ spring-boot-starter-parent 的父项目是 spring-boot-dependencies
     </dependency>
 </dependencies>
 ```
+
+ - spring-boot-starter-web:
+     - "spring-boot-starter"部分：
+         - springboot场景启动器；帮助我们倒入web模块正常运行所依赖的组建。
+         - https://www.baeldung.com/spring-boot-starters
+
+# 06-springboot-场景启动器
+
+## 2. 主程序类，主入口类
+```java
+package com.atguigu;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class HelloWorldMainApplication {
+    public static void main(String[] args) {
+        // Start Spring Application.
+        SpringApplication.run(HelloWorldMainApplication.class, args);
+    }
+}
+```
+
+ - @SpringBootApplication: Spring Boot 应用标注在某个类上 说明这个类是SpringBoot的主配置类，SpringBoot就应该运行这个类的main方法来启动SpringBoot应用。
+
+
+```java
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(
+    excludeFilters = {@Filter(
+    type = FilterType.CUSTOM,
+    classes = {TypeExcludeFilter.class}
+), @Filter(
+    type = FilterType.CUSTOM,
+    classes = {AutoConfigurationExcludeFilter.class}
+)}
+)
+public @interface SpringBootApplication 
+
+...
+
+
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Configuration
+public @interface SpringBootConfiguration
+
+...
+
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@AutoConfigurationPackage
+@Import({AutoConfigurationImportSelector.class})
+public @interface EnableAutoConfiguration
+
+...
+
+@Import({Registrar.class})
+public @interface AutoConfigurationPackage
+
+```
+
+ - @SpringBootConfiguration: Spring Boot 的配置类；
+     - 标注在某个类上，表示这是一个SpringBoot 的配置类
+ - @Configuration：配置类上来标注这个注解：
+     - 配置类 --- 配置文件；配置类也是容器中的额一个组件
+ - @EnableAutoConfiguration：开启自动配置功能
+     - 以前我们需要配置的东西，SpringBoot 帮我们自动配置；告诉SpringBoot开启自动配置功能
+     - @AutoConfigurationPackage: 自动配置包
+         - 将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器 [class' package -> auto scan]
+
+TODO: come back in the future and learn this again.
+
+
+
 

@@ -258,7 +258,7 @@ public class HelloController {
 src/main/resources:
  - static 文件夹: 保存所有的静态资源；js, css, images
  - templates 文件夹：保存所有的模版页面
- - application.properties: 默认配置文件
+ - application.properties: 修改SpringBoot自动配置的默认值
 
  - 改改application.properties
 ```
@@ -267,5 +267,28 @@ server.port=8081
 
  - 从新启动springboot，去localhost:8081/hello (NOT :8080, is not running on 8080 anymore)
 
+# 08-springboot-配置yaml
+
+ - Spring Boot 使用一个全局的配置文件
+     - application.properties
+     - application.yml
+
+ - 可以使用application.yml 代替 application.properties
+
+ -  YAML以数据为中心，比json, xml等 更适合做配置文件 
+
+ ```yml
+server:
+  port: 8081
+ ```
+
+以前的写法（xml）就是
+```xml
+<server>
+    <port>8081</port>
+</server>
+```
+
+当我们使用xml，大量的数据都花在标签 (eg. <XXX></XXX>)
 
 

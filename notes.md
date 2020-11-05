@@ -228,5 +228,44 @@ public @interface AutoConfigurationPackage
 TODO: come back in the future and learn this again.
 
 
+# 07-springboot-场景启动器-使用向导快速创建Spring Boot应用
+
+ - 使用 Spring Initializer -> Choose Web
+ - Create Controller
+
+```java
+package com.atguigu.springboot01helloworld.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+//@ResponseBody // 这个类的所有方法返回的数据直接写给浏览器
+//@Controller
+@RestController // 可以替换 @Controller 和 @ResponseBody
+public class HelloController {
+    @RequestMapping("/hello")
+    public String hello(){
+        return "hello world quick!";
+    }
+}
+```
+
+ - 去localhost:8080/hello 试试
+
+src/main/resources:
+ - static 文件夹: 保存所有的静态资源；js, css, images
+ - templates 文件夹：保存所有的模版页面
+ - application.properties: 默认配置文件
+
+ - 改改application.properties
+```
+server.port=8081
+```
+
+ - 从新启动springboot，去localhost:8081/hello (NOT :8080, is not running on 8080 anymore)
+
 
 
